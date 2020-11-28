@@ -1,6 +1,5 @@
-import AppHome from '@/components/AppHome'
+const AppHome = () => import('@/components/AppHome')
 const AppMedium = () => import('@/components/AppMedium')
-
 
 const routes = [
     {

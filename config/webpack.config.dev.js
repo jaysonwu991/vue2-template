@@ -63,17 +63,7 @@ const config = {
         include: [path.resolve(__dirname, '../src')]
       },
       {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: { sourceMap: true }
-          }
-        ]
-      },
-      {
-        test: /\.s[ac]ss$/,
+        test: /\.s?[ac]ss$/,
         use: [
           'vue-style-loader',
           { loader: 'css-loader', options: { sourceMap: true } },

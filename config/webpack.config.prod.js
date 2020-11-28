@@ -7,17 +7,14 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-const productionGzipExtensions = [ 'js', 'css' ]
+const productionGzipExtensions = ['js', 'css']
 
 const config = {
   mode: 'production',
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
   entry: {
-    app: path.resolve(__dirname, '../src/index')
-  },
-  externals: {
-    'vue': 'Vue',
-    'vue-router': 'VueRouter'
+    app: path.resolve(__dirname, '../src/index'),
+    vendor: ['vue', 'vue-router']
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -61,11 +58,7 @@ const config = {
         include: [path.resolve(__dirname, '../src')]
       },
       {
-        test: /\.css$/,
-        use: [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader']
-      },
-      {
-        test: /\.s[ac]ss$/,
+        test: /\.s?[ac]ss$/,
         use: [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
       }
     ]
@@ -89,6 +82,7 @@ const config = {
     })
   ],
   optimization: {
+    minimize: true,
     splitChunks: {
       chunks: 'all',
       minChunks: 2,
@@ -105,14 +99,16 @@ const config = {
       }
     },
     minimizer: [
+      new TerserPlugin({
+        parallel: true
+      }),
       new OptimizeCSSAssetsPlugin({
         cssProcessorOptions: {
           map: {
             inline: false
           }
         }
-      }),
-      new TerserPlugin()
+      })
     ]
   }
 }
