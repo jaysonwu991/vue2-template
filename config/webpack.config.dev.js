@@ -5,7 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const config = {
   mode: 'development',
-  devtool: 'eval-cheap-source-map',
+  devtool: 'eval-cheap-module-source-map',
   entry: {
     app: path.resolve(__dirname, '../src/index')
   },
@@ -28,10 +28,7 @@ const config = {
     overlay: true,
     progress: true,
     compress: true,
-    historyApiFallback: true,
-    stats: {
-      normal: true
-    }
+    historyApiFallback: true
   },
   resolve: {
     extensions: ['.js', '.vue'],

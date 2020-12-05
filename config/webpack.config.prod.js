@@ -12,7 +12,7 @@ const productionGzipExtensions = ['js', 'css']
 
 const config = {
   mode: 'production',
-  devtool: 'cheap-module-source-map',
+  devtool: 'hidden-source-map',
   entry: {
     app: path.resolve(__dirname, '../src/index'),
     vendor: ['vue', 'vue-router']
