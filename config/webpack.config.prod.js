@@ -8,19 +8,19 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-const productionGzipExtensions = ['js', 'css']
+const productionGzipExtensions = [ 'js', 'css' ]
 
 const config = {
   mode: 'production',
-  devtool: 'hidden-source-map',
+  target: [ 'web', 'es5' ],
   entry: {
     app: path.resolve(__dirname, '../src/index'),
-    vendor: ['vue', 'vue-router']
+    vendor: [ 'vue', 'vue-router' ]
   },
   output: {
     publicPath: '/',
-    filename: 'js/[name].[hash].js',
-    chunkFilename: 'js/[id].[hash].chunk.js',
+    filename: 'scripts/[name].[contenthash:8].js',
+    chunkFilename: 'scripts/[id].[contenthash:8].chunk.js',
     path: path.resolve(__dirname, '../dist')
   },
   performance: {
@@ -29,7 +29,7 @@ const config = {
     maxAssetSize: 512000
   },
   resolve: {
-    extensions: ['.js', '.vue'],
+    extensions: [ '.js', '.vue' ],
     alias: {
       vue$: 'vue/dist/vue.runtime.min.js',
       '@': path.resolve(__dirname, '../src')
@@ -41,17 +41,43 @@ const config = {
         test: /\.vue$/,
         loader: 'vue-loader',
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src')]
+        include: [ path.resolve(__dirname, '../src') ],
+        options: {
+          loaders: {
+            css: [
+              MiniCSSExtractPlugin.loader,
+              'css-loader',
+              'postcss-loader',
+              {
+                loader: 'sass-loader',
+                options: {
+                  implementation: require('sass')
+                }
+              }
+            ]
+          },
+          preserveWhitespace: false // 不要留空白
+        }
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src')]
+        include: [ path.resolve(__dirname, '../src') ]
       },
       {
         test: /\.s?[ac]ss$/,
-        use: [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+        use: [
+          MiniCSSExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass')
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -78,16 +104,18 @@ const config = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new VueLoaderPlugin(),
     new ESLintPlugin({
       formatter: require('eslint-friendly-formatter')
     }),
-    new VueLoaderPlugin(),
     new HtmlPlugin({
-      template: 'index.html'
+      inject: true,
+      template: path.resolve(__dirname, '../public/index.html'),
+      showErrors: true
     }),
     new MiniCSSExtractPlugin({
-      filename: 'css/[name].[hash].css',
-      chunkFilename: 'css/[id].[hash].css'
+      filename: 'styles/[name].[contenthash:8].css',
+      chunkFilename: 'styles/[id].[contenthash:8].css'
     }),
     new CompressionPlugin({
       filename: '[path][name].gz[query]',
@@ -115,15 +143,15 @@ const config = {
       }
     },
     minimizer: [
-      new TerserPlugin({
-        parallel: true
-      }),
       new OptimizeCSSAssetsPlugin({
         cssProcessorOptions: {
           map: {
             inline: false
           }
         }
+      }),
+      new TerserPlugin({
+        parallel: true
       })
     ]
   }

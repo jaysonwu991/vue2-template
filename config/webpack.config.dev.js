@@ -31,7 +31,7 @@ const config = {
     historyApiFallback: true
   },
   resolve: {
-    extensions: ['.js', '.vue'],
+    extensions: [ '.js', '.vue' ],
     alias: {
       vue$: 'vue/dist/vue.runtime.js',
       '@': path.resolve(__dirname, '../src')
@@ -43,20 +43,26 @@ const config = {
         test: /\.vue$/,
         loader: 'vue-loader',
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src')]
+        include: [ path.resolve(__dirname, '../src') ]
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src')]
+        include: [ path.resolve(__dirname, '../src') ]
       },
       {
         test: /\.s?[ac]ss$/,
         use: [
           'vue-style-loader',
           { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } }
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              implementation: require('sass')
+            }
+          }
         ]
       },
       {
@@ -88,7 +94,9 @@ const config = {
     }),
     new VueLoaderPlugin(),
     new HtmlPlugin({
-      template: 'index.html'
+      inject: true,
+      template: path.resolve(__dirname, '../public/index.html'),
+      showErrors: true
     })
   ]
 }
