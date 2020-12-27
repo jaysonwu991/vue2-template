@@ -14,15 +14,15 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  extends: ['eslint:recommended', 'plugin:vue/recommended', 'prettier'],
-  plugins: ['prettier'],
+  extends: [ 'eslint:recommended', 'plugin:vue/recommended', 'prettier' ],
+  plugins: [ 'prettier' ],
   rules: {
     'no-unused-vars': 1,
-    semi: [2, 'never'],
-    quotes: [2, 'single'],
-    'object-curly-spacing': [2, 'always'],
-    'array-bracket-spacing': [2, 'always'],
-    'comma-dangle': [2, 'never'],
+    semi: [ 2, 'never' ],
+    quotes: [ 2, 'single' ],
+    'object-curly-spacing': [ 2, 'always' ],
+    'array-bracket-spacing': [ 2, 'always' ],
+    'comma-dangle': [ 2, 'never' ],
     'comma-spacing': [
       2,
       {

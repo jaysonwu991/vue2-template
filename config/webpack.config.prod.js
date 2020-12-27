@@ -6,7 +6,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const productionGzipExtensions = [ 'js', 'css' ]
 
@@ -41,23 +41,7 @@ const config = {
         test: /\.vue$/,
         loader: 'vue-loader',
         exclude: /node_modules/,
-        include: [ path.resolve(__dirname, '../src') ],
-        options: {
-          loaders: {
-            css: [
-              MiniCSSExtractPlugin.loader,
-              'css-loader',
-              'postcss-loader',
-              {
-                loader: 'sass-loader',
-                options: {
-                  implementation: require('sass')
-                }
-              }
-            ]
-          },
-          preserveWhitespace: false // 不要留空白
-        }
+        include: [ path.resolve(__dirname, '../src') ]
       },
       {
         test: /\.js$/,
@@ -143,15 +127,11 @@ const config = {
       }
     },
     minimizer: [
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {
-          map: {
-            inline: false
-          }
-        }
-      }),
       new TerserPlugin({
         parallel: true
+      }),
+      new CssMinimizerPlugin({
+        sourceMap: true
       })
     ]
   }
