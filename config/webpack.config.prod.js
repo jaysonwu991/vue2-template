@@ -8,14 +8,14 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
-const productionGzipExtensions = [ 'js', 'css' ]
+const productionGzipExtensions = ['js', 'css']
 
 const config = {
   mode: 'production',
-  target: [ 'web', 'es5' ],
+  target: ['web', 'es5'],
   entry: {
     app: path.resolve(__dirname, '../src/index'),
-    vendor: [ 'vue', 'vue-router' ]
+    vendor: ['vue', 'vue-router']
   },
   output: {
     publicPath: '/',
@@ -29,7 +29,7 @@ const config = {
     maxAssetSize: 512000
   },
   resolve: {
-    extensions: [ '.js', '.vue' ],
+    extensions: ['.js', '.vue'],
     alias: {
       vue$: 'vue/dist/vue.runtime.min.js',
       '@': path.resolve(__dirname, '../src')
@@ -41,13 +41,13 @@ const config = {
         test: /\.vue$/,
         loader: 'vue-loader',
         exclude: /node_modules/,
-        include: [ path.resolve(__dirname, '../src') ]
+        include: [path.resolve(__dirname, '../src')]
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        include: [ path.resolve(__dirname, '../src') ]
+        include: [path.resolve(__dirname, '../src')]
       },
       {
         test: /\.s?[ac]ss$/,
@@ -67,14 +67,14 @@ const config = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'imgs/[name].[hash:7].[ext]'
+          filename: 'images/[name].[hash:7].[ext]'
         }
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'media/[name].[hash:7].[ext]'
+          filename: 'medias/[name].[hash:7].[ext]'
         }
       },
       {

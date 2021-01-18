@@ -12,8 +12,8 @@ const config = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
-    filename: 'js/[name].bundle.js',
-    chunkFilename: 'js/[id].chunk.js'
+    filename: 'scripts/[name].bundle.js',
+    chunkFilename: 'scripts/[id].chunk.js'
   },
   optimization: {
     runtimeChunk: 'single',
@@ -31,7 +31,7 @@ const config = {
     historyApiFallback: true
   },
   resolve: {
-    extensions: [ '.js', '.vue' ],
+    extensions: ['.js', '.vue'],
     alias: {
       vue$: 'vue/dist/vue.runtime.js',
       '@': path.resolve(__dirname, '../src')
@@ -43,13 +43,13 @@ const config = {
         test: /\.vue$/,
         loader: 'vue-loader',
         exclude: /node_modules/,
-        include: [ path.resolve(__dirname, '../src') ]
+        include: [path.resolve(__dirname, '../src')]
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        include: [ path.resolve(__dirname, '../src') ]
+        include: [path.resolve(__dirname, '../src')]
       },
       {
         test: /\.s?[ac]ss$/,
@@ -69,14 +69,14 @@ const config = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'imgs/[name].[hash:7].[ext]'
+          filename: 'images/[name].[hash:7].[ext]'
         }
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'media/[name].[hash:7].[ext]'
+          filename: 'medias/[name].[hash:7].[ext]'
         }
       },
       {
