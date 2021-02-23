@@ -10,13 +10,13 @@ Vue.use(VueRouter)
 
 // Configure router
 const router = new VueRouter({
-    routes,
-    linkActiveClass: 'active',
-    mode: 'history'
+  routes,
+  mode: 'history',
+  linkActiveClass: 'active'
 })
 
 new Vue({
-    el: '#app',
-    render: h => h(App),
-    router
+  el: '#app',
+  render: (h) => h(App),
+  router
 })

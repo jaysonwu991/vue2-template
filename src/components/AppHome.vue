@@ -1,5 +1,7 @@
 <template>
-  <h1>Home Page</h1>
+  <div class="title">
+    Home Page
+  </div>
 </template>
 
 <script>
@@ -8,8 +10,8 @@ export default {
 }
 </script>
 
-<style scoped>
-h1 {
-  color: green;
+<style lang="scss" scoped>
+.title {
+  font-size: 60px;
 }
 </style>

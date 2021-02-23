@@ -10,12 +10,12 @@ module.exports = {
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     ecmaVersion: 2018,
     sourceType: 'module'
   },
   extends: ['eslint:recommended', 'plugin:vue/recommended', 'prettier'],
-  plugins: ['prettier'],
+  plugins: ['@babel', 'prettier'],
   rules: {
     'no-unused-vars': [1, { 'argsIgnorePattern': '^_' }],
     semi: [2, 'never'],

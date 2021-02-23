@@ -1,6 +1,6 @@
 <template>
   <div class="title">
-    <h1>Medium Page</h1>
+    Medium Page
   </div>
 </template>
 
@@ -12,8 +12,6 @@ export default {
 
 <style lang="scss" scoped>
 .title {
-  h1 {
-    color: red;
-  }
+  font-size: 60px;
 }
 </style>
