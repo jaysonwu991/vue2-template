@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: 'AppHome'
-}
+  name: 'AppHome',
+};
 </script>
 
 <style lang="scss" scoped>

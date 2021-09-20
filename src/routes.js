@@ -1,17 +1,17 @@
-const AppHome = () => import('@/components/AppHome')
-const AppMedium = () => import('@/components/AppMedium')
+const AppHome = () => import('@/components/AppHome');
+const AppMedium = () => import('@/components/AppMedium');
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: AppHome
+    component: AppHome,
   },
   {
     path: '/medium',
     name: 'Medium',
-    component: AppMedium
-  }
-]
+    component: AppMedium,
+  },
+];
 
-export default routes
+export default routes;

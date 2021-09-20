@@ -1,21 +1,12 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlPlugin = require('html-webpack-plugin')
-const ESLintPlugin = require('eslint-webpack-plugin')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+const path = require('path');
+const HtmlPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const config = {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
-  entry: {
-    app: [
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/dev-server',
-      path.resolve(__dirname, '../src/index')
-    ],
-    vendor: ['vue', 'vue-router']
-  },
+  entry: [path.resolve(__dirname, '../src/index.js')],
   output: {
     publicPath: '/',
     filename: 'scripts/[name].bundle.js',
@@ -25,11 +16,8 @@ const config = {
     hot: true,
     open: true,
     port: 8080,
-    overlay: true,
-    progress: true,
     compress: true,
-    historyApiFallback: true,
-    contentBase: path.resolve(__dirname, '../dist')
+    historyApiFallback: true
   },
   resolve: {
     extensions: ['.js', '.vue'],
@@ -48,16 +36,51 @@ const config = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src')]
+        include: [path.resolve(__dirname, '../src')],
+        use: [
+          {
+            loader: require.resolve('swc-loader'),
+            options: {
+              jsc: {
+                parser: {
+                  dynamicImport: true,
+                  syntax: 'ecmascript'
+                },
+                transform: {
+                  react: {
+                    refresh: true,
+                    development: true,
+                    useBuiltins: true
+                  }
+                }
+              }
+            }
+          },
+          {
+            loader: require.resolve('esbuild-loader'),
+            options: {
+              target: 'es2015'
+            }
+          }
+        ]
       },
       {
         test: /\.s?[ac]ss$/,
         use: [
           'style-loader',
           { loader: 'css-loader', options: { sourceMap: true } },
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: {
+                  autoprefixer: {}
+                }
+              }
+            }
+          },
           {
             loader: 'sass-loader',
             options: {
@@ -91,20 +114,16 @@ const config = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new ESLintPlugin({
       formatter: require('eslint-friendly-formatter')
     }),
     new VueLoaderPlugin(),
-    new MiniCSSExtractPlugin({
-      filename: 'styles/[name].[hash:8].css'
-    }),
     new HtmlPlugin({
       inject: true,
       showErrors: true,
       template: path.resolve(__dirname, '../public/index.html')
     })
   ]
-}
+};
 
-module.exports = config
+module.exports = config;

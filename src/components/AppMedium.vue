@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: 'AppMedium'
-}
+  name: 'AppMedium',
+};
 </script>
 
 <style lang="scss" scoped>
