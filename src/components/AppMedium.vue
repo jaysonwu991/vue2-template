@@ -1,12 +1,10 @@
 <template>
-  <div class="title">
-    Medium Page
-  </div>
+  <div class="title">Medium Page</div>
 </template>
 
 <script>
 export default {
-  name: 'AppMedium',
+  name: 'AppMedium'
 };
 </script>
 

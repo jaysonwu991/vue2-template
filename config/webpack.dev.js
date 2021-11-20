@@ -10,21 +10,21 @@ const config = {
   output: {
     publicPath: '/',
     filename: 'scripts/[name].bundle.js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../dist'),
   },
   devServer: {
     hot: true,
     open: true,
     port: 8080,
     compress: true,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {
       vue$: 'vue/dist/vue.runtime.js',
-      '@': path.resolve(__dirname, '../src')
-    }
+      '@': path.resolve(__dirname, '../src'),
+    },
   },
   module: {
     rules: [
@@ -32,7 +32,7 @@ const config = {
         test: /\.vue$/,
         loader: 'vue-loader',
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src')]
+        include: [path.resolve(__dirname, '../src')],
       },
       {
         test: /\.js$/,
@@ -45,25 +45,25 @@ const config = {
               jsc: {
                 parser: {
                   dynamicImport: true,
-                  syntax: 'ecmascript'
+                  syntax: 'ecmascript',
                 },
                 transform: {
                   react: {
                     refresh: true,
                     development: true,
-                    useBuiltins: true
-                  }
-                }
-              }
-            }
+                    useBuiltins: true,
+                  },
+                },
+              },
+            },
           },
           {
             loader: require.resolve('esbuild-loader'),
             options: {
-              target: 'es2015'
-            }
-          }
-        ]
+              target: 'es2015',
+            },
+          },
+        ],
       },
       {
         test: /\.s?[ac]ss$/,
@@ -76,54 +76,54 @@ const config = {
               postcssOptions: {
                 ident: 'postcss',
                 plugins: {
-                  autoprefixer: {}
-                }
-              }
-            }
+                  autoprefixer: {},
+                },
+              },
+            },
           },
           {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
-              implementation: require('sass')
-            }
-          }
-        ]
+              implementation: require('sass'),
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name].[hash:8].[ext]'
-        }
+          filename: 'images/[name].[hash:8].[ext]',
+        },
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'medias/[name].[hash:8].[ext]'
-        }
+          filename: 'medias/[name].[hash:8].[ext]',
+        },
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[name].[hash:8].[ext]'
-        }
-      }
-    ]
+          filename: 'fonts/[name].[hash:8].[ext]',
+        },
+      },
+    ],
   },
   plugins: [
     new ESLintPlugin({
-      formatter: require('eslint-friendly-formatter')
+      formatter: require('eslint-friendly-formatter'),
     }),
     new VueLoaderPlugin(),
     new HtmlPlugin({
       inject: true,
       showErrors: true,
-      template: path.resolve(__dirname, '../public/index.html')
-    })
-  ]
+      template: path.resolve(__dirname, '../public/index.html'),
+    }),
+  ],
 };
 
 module.exports = config;

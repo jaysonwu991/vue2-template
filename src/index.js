@@ -12,11 +12,11 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
   mode: 'history',
-  linkActiveClass: 'active',
+  linkActiveClass: 'active'
 });
 
 new Vue({
   el: '#app',
   render: (h) => h(App),
-  router,
+  router
 });
