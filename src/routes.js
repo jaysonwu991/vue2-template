@@ -5,13 +5,13 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: AppHome
+    component: AppHome,
   },
   {
     path: '/medium',
     name: 'Medium',
-    component: AppMedium
-  }
+    component: AppMedium,
+  },
 ];
 
 export default routes;
