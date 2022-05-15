@@ -1,6 +1,6 @@
 {
   "name": "vue2-template",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Vue 2.x Template Project",
   "main": "src/index.js",
   "scripts": {
